@@ -8,34 +8,33 @@
 //    ============ global variables===========           
 
 var imgContainer = document.getElementById('img-container');
-var buttonContainer = document.getElementById('button');
-var voteContainer = document.getElementById('vote');
-var clearContainer = document.getElementById('clear');
 var imgOneEl = document.getElementById('image-one');
 var imgTwoEl = document.getElementById('image-two');
 var imgThreeEl = document.getElementById('image-three');
+var myList = document.getElementById('list');
 
-var  picArray = [];  
+
+var  pictures = [];  
 var totalClicksAllowed = 25;
 var clicks = 0;
 // number of pictures are displayed. 
 var totalImages = 3;
 
 //================  constructor ============
-function Pictures(name , src){
-    this.name = name
+function Picture(name){
+    this.name = name;
     this.src = `img/$(name}.jpg`; 
     this.views = 0;
     this.votes = 0;
-    picArray.push(this);
+    pictures.push(this);
 
 }
-   function getRandomPictueIndex(){
+   function getRandomPictureIndex(){
        return Math.floor(Math.random() * Pictures.length);
    }
 
 
-function desplayPictures() {
+function pictures() {
 new Picture('bag');
 new Picture('banana');
 new Picture('bathroom');
@@ -56,11 +55,48 @@ new Picture('unicorn');
 new Picture('usb');
 new Picture('water-can');
 new Picture('wine-glass');
+};
+
+function getRandomPictures(){
+    var pictureOne = getRandomPictureIndex();
+    var pictureTwo = getRandomPictureIndex();
+    while (pictureOne=== pictureTwo){
+        pictureTwo= getRandomPictureIndex();
+    }
+    imgOneEl.src = Pictures[PictureOne].src ;
+    imgOneEl.alt = Pictures[PictureOne].name;
+    Pictures[PictureOne].views++;
+    
+    imgTwoEl.src = Pictures[pictureTwo].src;
+    imgTwoEl.alt = Pictures[PictureTwo].name;
+    Pictures[Picturetwo].views++;
 }
+  function renderResult(){
+      for(var i = 0 ;i < Pictures.length; i ++){
+          var li = document.createElement('li');
+          li.textContent = `{pictures[i].name} had ${Pictures[i].votes},and was seen ${Pictures[i].views} times.`;
+           myList.appendChild(li);
 
+      }
+  }
+      renderpictures();
+  function handleClick(event){
+      var clickedpicture = event.target.alt;
+      clicks++;
+      
+      for (var i = 0; i < pictures.length; i++){
+          if(clickedpicture=== pictures[i].name){
+            Pictures[i].votes++; 
+          }
+        }
+      
+      if(clicks === totalClicksAllowed){
+        imgContainer.removeEventListener('click', handleClick);
+        
+       
+      }
+    } 
+    renderResult();
+    imgContainer.addEventListener('click',handleClick);
 
-
-
-
-
-  
+    
