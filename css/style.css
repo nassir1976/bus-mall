@@ -16,30 +16,20 @@ h1 {
 }
 
 img {
+  
   display: inline-block;
-  /* width: 120px; */
+  width: 120px;
   min-height: 120px;
   max-height: 120px;
   margin: 10px 10px;
   border: 8px solid rgb(68, 116, 179);
   border-style: outset;
   padding: 10px;
-  width: 300px;
 }
-
 img:hover {
   border: 8px solid rgb(193, 207, 224);
-}
-
-#img-containe {
-  outline: 3px solid rgb(245, 245, 245);
-  padding: 20px;
-  margin: 20px auto;
-  text-align: center;
-  width: 75%
 
 }
-
  h2,ul,button {
     text-align: center;
     color:green;
@@ -54,26 +44,24 @@ img:hover {
     height: 600px;
   }
   
-#list{
+#catalogList{
    list-style-type: hover;
    font-size: 20px;
    font-family: 'Times New Roman', Times, serif;
    font-weight: bolder;
-   color: red;
+   color: rosybrown;
     
 }
-/* #vote ,clear{
-    cursor: pointer;
-    background-color:white;
-    color:black;
-    font-weight: bold;
 
 
-} 
 
-#clear{
-    cursor: pointer;
-    color:black;
-    font-weight: bold;
 
-} */
+
+
+
+
+
+
+
+
+
