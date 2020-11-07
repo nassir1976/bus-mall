@@ -177,11 +177,6 @@ function renderMyChart() {
         fontSize: 18,
         padding: 30,
         fontColor: 'rgb(245, 245, 245)'
-        // yAxes: [{
-        //   ticks: {
-        //     beginAtZero: true
-        //   }
-        // }]
       }
     }
   });
