@@ -54,17 +54,18 @@ new Pictures('wine-glass');
 
 
 function populateRenderQueue() {
-  renderQueue = [];
-  while (renderQueue.length < 3) {
+
+  while (renderQueue.length > 3) {
+    renderQueue.shift();
+  }
+  while (renderQueue.length < 6) {
     var uniquePicture = getRandompictures();
-
     while (renderQueue.includes(uniquePicture)) {
-
       uniquePicture = getRandompictures();
     }
     renderQueue.push(uniquePicture);
   }
-
+  console.log('renderque:', renderQueue);
 }
 function renderPictures() {
   populateRenderQueue();
@@ -73,9 +74,9 @@ function renderPictures() {
   var pictureThree = renderQueue[2];
 
 
-  pictureOneEl.src = allPictures[pictureOne].src;
-  pictureOneEl.alt = allPictures[pictureOne].name;
-  allPictures[pictureOne].views++;
+  pictureOneEl.src = allPictures[pictureOne].src; // getting source
+  pictureOneEl.alt = allPictures[pictureOne].name; // getting alt
+  allPictures[pictureOne].views++; // increment views
 
   pictureTwoEl.src = allPictures[pictureTwo].src;
   pictureTwoEl.alt = allPictures[pictureTwo].name;
@@ -113,6 +114,7 @@ function handleClick(event) {
 
     pictureContener.removeEventListener('click', handleClick);
 
+    renderMyChart();
     renderResults();
 
   }
@@ -136,76 +138,51 @@ function getChartData() {
     viewsData.push(allPictures[i].views);
   }
 }
-
-// var ctx = document.getElementById('myChart').getContext('2d');
-new Chart(ctx, {
-  type: 'bar',
-
-  data: {
-    labels: namesData,
-    datasets: [{
-      label: 'Votes',
-      hoverBackgroundColor: 'rgba(255, 99, 132, 0.2)',
-      data: votesData,
-      backgroundColor: [
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
+// invoked
+function renderMyChart() {
+  getChartData(); // invoked
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: namesData,
+      datasets: [
+        {
+          label: '# of votes',
+          data: votesData,
+          backgroundColor: 'rgba(255, 128, 128, 0.886)',
+          borderColor: 'rgb(76, 173, 252)',
+          borderWidth: 2
 
 
-      ],
-
-      borderColor: [
-
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(153, 102, 255, 1)',
-
-      ],
-      borderWidth: 4
-    }]
-
-  },
-
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
+        },
+        {
+          label: '# of views ',
+          data: votesData,
+          backgroundColor: 'rgb(245, 245, 245)',
+          borderColor: 'rgb(245, 245, 245)',
+          borderWidth: 2,
+          hoverBorderColor: 'red',
+          hoverBorderWidth: 3
         }
-      }]
+      ]
+    },
+    options: {
+      legend: {
+        position: 'top',
+
+      },
+      title: {
+        text: 'voting results',
+        display: true,
+        fontSize: 18,
+        padding: 30,
+        fontColor: 'rgb(245, 245, 245)'
+        // yAxes: [{
+        //   ticks: {
+        //     beginAtZero: true
+        //   }
+        // }]
+      }
     }
-  }
-});
+  });
+}
