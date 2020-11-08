@@ -129,11 +129,13 @@ function handleClick(event) {
 
     renderMyChart();
     renderResults();
+
     //  lab 13 save data begins
 
     var stringifiedResults = JSON.stringify(allPictures); // "packs data away" to be stored, we convert to JSON
     localStorage.setItem('pictureResults', stringifiedResults); // store the data - "put the box on the shelf"
     // lab 13 save data ends
+
   }
 }
 pictureContener.addEventListener('click', handleClick);
@@ -159,6 +161,7 @@ function getChartData() {
 function renderMyChart() {
   getChartData(); // invoked
   var myChart = new Chart(ctx, {  //eslint-disable-line
+
     type: 'bar',
     data: {
       labels: namesData,
@@ -189,8 +192,9 @@ function renderMyChart() {
 
       },
       title: {
+
         text: 'bar chart',
-        display: true,
+
         fontSize: 18,
         padding: 30,
         fontColor: 'rgb(245, 245, 245)'
