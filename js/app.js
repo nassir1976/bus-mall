@@ -14,9 +14,7 @@ var totalClickedAllowed = 25;
 var clicked = 0;
 var allPictures = [];
 var renderQueue = [];
-var votesArray = [];
-var viewsArray = [];
-var namesArray = [];
+
 
 
 function Pictures(name) {
@@ -56,17 +54,18 @@ new Pictures('wine-glass');
 
 
 function populateRenderQueue() {
-  renderQueue = [];
-  while (renderQueue.length < 3) {
+
+  while (renderQueue.length > 3) {
+    renderQueue.shift();
+  }
+  while (renderQueue.length < 6) {
     var uniquePicture = getRandompictures();
-
     while (renderQueue.includes(uniquePicture)) {
-
       uniquePicture = getRandompictures();
     }
     renderQueue.push(uniquePicture);
   }
-
+  console.log('renderque:', renderQueue);
 }
 function renderPictures() {
   populateRenderQueue();
@@ -75,9 +74,9 @@ function renderPictures() {
   var pictureThree = renderQueue[2];
 
 
-  pictureOneEl.src = allPictures[pictureOne].src;
-  pictureOneEl.alt = allPictures[pictureOne].name;
-  allPictures[pictureOne].views++;
+  pictureOneEl.src = allPictures[pictureOne].src; // getting source
+  pictureOneEl.alt = allPictures[pictureOne].name; // getting alt
+  allPictures[pictureOne].views++; // increment views
 
   pictureTwoEl.src = allPictures[pictureTwo].src;
   pictureTwoEl.alt = allPictures[pictureTwo].name;
@@ -114,61 +113,71 @@ function handleClick(event) {
   if (clicked === totalClickedAllowed) {
 
     pictureContener.removeEventListener('click', handleClick);
-    // renderChart();
+
+    renderMyChart();
     renderResults();
+
   }
 }
 pictureContener.addEventListener('click', handleClick);
 
 
-// /=======/ chart=========
-// function getData() {
-//   for (var i = 0; i < allPictures.length; i++) {
-//     votesArray.push(pictures[i].votes);
-//     viewsArray.push(pictures[i].views);
-//     namesArray.push(pictures[i].name);
-//   }
-// }
 
 
-// getData();
+//PUSH DATA INTO ARRAYS INTO CHART FUNCTION
 
-// function renderChart() {
-//   // getData();
-//   var chartPictures = {
-//     type: 'bar',
-//     data: {
-//       labels: namesArray,
-//       datasets: [{
-//         label: '# of Votes',
+var namesData = [];
+var votesData = [];
+var viewsData = [];
 
-//         hoverBackgroundColor: 'rgba(75, 192, 192, 0.2)',
 
-//         data: votesArray,
+function getChartData() {
+  for (var i = 0; i < allPictures.length; i++) {
+    namesData.push(allPictures[i].name);
+    votesData.push(allPictures[i].votes);
+    viewsData.push(allPictures[i].views);
+  }
+}
+// invoked
+function renderMyChart() {
+  getChartData(); // invoked
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: namesData,
+      datasets: [
+        {
+          label: '# of votes',
+          data: votesData,
+          backgroundColor: 'rgba(255, 128, 128, 0.886)',
+          borderColor: 'rgb(76, 173, 252)',
+          borderWidth: 2
 
-//         backgroundColor: 'rgba(54, 162, 235, 0.4)',
-//         borderColor: 'rgba(255, 99, 132, 1)',
-//         borderWidth: 2
-//       },
 
-//       {
-//         label: '# of views',
-//         data: viewsArray,
-//         backgroundColor: 'rgba(54, 162, 235, 0.2)',
-//         borderColor: 'rgba(54, 162, 235, 1)',
-//         borderWidth: 2
-//       }]
-//     },
-//     options: {
-//       scales: {
-//         yAxes: [{
-//           ticks: {
-//             beginAtZero: true
-//           }
-//         }]
-//       }
-//     }
-//   };
-//   var myChart = new Chart(ctx, chartObject);  //eslint-disable-line
-// }
-// pictureContener.addEventListener('click', handleClick);
+        },
+        {
+          label: '# of views ',
+          data: votesData,
+          backgroundColor: 'rgb(245, 245, 245)',
+          borderColor: 'rgb(245, 245, 245)',
+          borderWidth: 2,
+          hoverBorderColor: 'red',
+          hoverBorderWidth: 3
+        }
+      ]
+    },
+    options: {
+      legend: {
+        position: 'top',
+
+      },
+      title: {
+        text: 'voting results',
+        display: true,
+        fontSize: 18,
+        padding: 30,
+        fontColor: 'rgb(245, 245, 245)'
+      }
+    }
+  });
+}
