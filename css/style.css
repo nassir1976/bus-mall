@@ -1,9 +1,10 @@
  body {
   margin: auto;
   background-color: rgb(7, 28, 56);
-  width: 95%;
+  width: 75%;
   border-color: lawngreen;
   outline: red;
+  height: auto;
 }
 
 h1 {
@@ -18,12 +19,12 @@ h1 {
 img {
   
   display: inline-block;
-  width: 120px;
-  min-height: 120px;
-  max-height: 120px;
+  width: 200px;
+  min-height: 150px;
+  max-height: 150px;
   margin: 10px 10px;
   border: 8px solid rgb(68, 116, 179);
-  border-style: outset;
+  border-style: solid;
   padding: 10px;
 }
 img:hover {
@@ -41,7 +42,7 @@ img:hover {
     width: 80%;
     margin: auto;
     border: 4px solid rgb(4, 73, 50);
-    height: 600px;
+    height: 400px;
   }
   
 #catalogList{
