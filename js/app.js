@@ -129,6 +129,7 @@ function handleClick(event) {
 
     renderMyChart();
     renderResults();
+
     //  lab 13 save data begins
 
     var stringifiedResults = JSON.stringify(allPictures); // "packs data away" to be stored, we convert to JSON
@@ -159,6 +160,9 @@ function getChartData() {
 function renderMyChart() {
   getChartData(); // invoked
   var myChart = new Chart(ctx, {  //eslint-disable-line
+=======
+  
+
     type: 'bar',
     data: {
       labels: namesData,
@@ -189,7 +193,9 @@ function renderMyChart() {
 
       },
       title: {
+
         text: 'bar chart',
+
         display: true,
         fontSize: 18,
         padding: 30,
