@@ -158,7 +158,7 @@ function getChartData() {
 // invoked
 function renderMyChart() {
   getChartData(); // invoked
-  var myChart = new Chart(ctx, {
+  var myChart = new Chart(ctx, {  //eslint-disable-line
     type: 'bar',
     data: {
       labels: namesData,
@@ -189,7 +189,7 @@ function renderMyChart() {
 
       },
       title: {
-        text: 'voting results',
+        text: 'bar chart',
         display: true,
         fontSize: 18,
         padding: 30,
