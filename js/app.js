@@ -195,6 +195,9 @@ function renderMyChart() {
 
         text: 'bar chart',
 
+
+        display: true,
+
         fontSize: 18,
         padding: 30,
         fontColor: 'rgb(245, 245, 245)'
