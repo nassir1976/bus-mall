@@ -28,28 +28,42 @@ function Pictures(name) {
 function getRandompictures() {
   return Math.floor(Math.random() * allPictures.length);
 }
-// ==============excuted code===========
 
-new Pictures('bag');
-new Pictures('banana');
-new Pictures('bathroom');
-new Pictures('boots');
-new Pictures('breakfast');
-new Pictures('bubblegum');
-new Pictures('chair');
-new Pictures('cthulhu');
-new Pictures('dog-duck');
-new Pictures('dragon');
-new Pictures('pen');
-new Pictures('pet-sweep');
-new Pictures('scissors');
-new Pictures('shark');
-new Pictures('sweep');
-new Pictures('tauntaun');
-new Pictures('unicorn');
-new Pictures('usb');
-new Pictures('water-can');
-new Pictures('wine-glass');
+
+// ==============excuted code===========
+// lab 13 retrieve data begins
+
+var retrievedResults = localStorage.getItem('pictureResults'); // IF the data exists, we "grab it off the shelf"
+// IF the data exists, we use it!
+// NOTE:  we need to NOT reinstantiate goats IF Local Storage ALREADY EXISTS
+if (retrievedResults) {
+  var parsedRetrievedResults = JSON.parse(retrievedResults); // "unpack the data" - convert from JSON to JavaScript
+  allPictures = parsedRetrievedResults;// IF data exists we assign that data to the goats array so we can add more data to existing data
+} else {
+
+  new Pictures('bag');
+  new Pictures('banana');
+  new Pictures('bathroom');
+  new Pictures('boots');
+  new Pictures('breakfast');
+  new Pictures('bubblegum');
+  new Pictures('chair');
+  new Pictures('cthulhu');
+  new Pictures('dog-duck');
+  new Pictures('dragon');
+  new Pictures('pen');
+  new Pictures('pet-sweep');
+  new Pictures('scissors');
+  new Pictures('shark');
+  new Pictures('sweep');
+  new Pictures('tauntaun');
+  new Pictures('unicorn');
+  new Pictures('usb');
+  new Pictures('water-can');
+  new Pictures('wine-glass');
+}
+// lab 13 retrieve data ends
+
 
 
 
@@ -100,25 +114,37 @@ renderPictures(); //  gives us initial image !!
 
 function handleClick(event) {
   var clickedPictures = event.target.alt;
-  clicked++;
+  if (clickedPictures) {
+    clicked++;
 
-  for (var i = 0; i < allPictures.length; i++) {
-    if (clickedPictures === allPictures[i].name) {
-      allPictures[i].votes++;
+    for (var i = 0; i < allPictures.length; i++) {
+      if (clickedPictures === allPictures[i].name) {
+        allPictures[i].votes++;
+      }
     }
-  }
-  // renderPictures();     //  gives us the images after each click!!
-  renderPictures();
+    // renderPictures();     //  gives us the images after each click!!
+    renderPictures();
 
-  if (clicked === totalClickedAllowed) {
+    if (clicked === totalClickedAllowed) {
 
-    pictureContener.removeEventListener('click', handleClick);
+      pictureContener.removeEventListener('click', handleClick);
 
-    renderMyChart();
-    renderResults();
+      renderMyChart();
+      renderResults();
 
+      //  lab 13 save data begins
+
+      var stringifiedResults = JSON.stringify(allPictures); // "packs data away" to be stored, we convert to JSON
+      localStorage.setItem('pictureResults', stringifiedResults); // store the data - "put the box on the shelf"
+      // lab 13 save data ends
+    }
+  } else {
+    alert('please clicked picture ');
   }
 }
+
+
+
 pictureContener.addEventListener('click', handleClick);
 
 
@@ -130,7 +156,6 @@ var namesData = [];
 var votesData = [];
 var viewsData = [];
 
-
 function getChartData() {
   for (var i = 0; i < allPictures.length; i++) {
     namesData.push(allPictures[i].name);
@@ -141,7 +166,8 @@ function getChartData() {
 // invoked
 function renderMyChart() {
   getChartData(); // invoked
-  var myChart = new Chart(ctx, {
+  var myChart = new Chart(ctx, {  //eslint-disable-line
+
     type: 'bar',
     data: {
       labels: namesData,
@@ -172,8 +198,12 @@ function renderMyChart() {
 
       },
       title: {
-        text: 'voting results',
+
+        text: 'bar chart',
+
+
         display: true,
+
         fontSize: 18,
         padding: 30,
         fontColor: 'rgb(245, 245, 245)'
