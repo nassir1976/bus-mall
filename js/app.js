@@ -28,6 +28,8 @@ function Pictures(name) {
 function getRandompictures() {
   return Math.floor(Math.random() * allPictures.length);
 }
+
+
 // ==============excuted code===========
 // lab 13 retrieve data begins
 
@@ -61,7 +63,6 @@ if (retrievedResults) {
   new Pictures('wine-glass');
 }
 // lab 13 retrieve data ends
-
 
 
 
@@ -113,31 +114,37 @@ renderPictures(); //  gives us initial image !!
 
 function handleClick(event) {
   var clickedPictures = event.target.alt;
-  clicked++;
+  if (clickedPictures) {
+    clicked++;
 
-  for (var i = 0; i < allPictures.length; i++) {
-    if (clickedPictures === allPictures[i].name) {
-      allPictures[i].votes++;
+    for (var i = 0; i < allPictures.length; i++) {
+      if (clickedPictures === allPictures[i].name) {
+        allPictures[i].votes++;
+      }
     }
-  }
-  // renderPictures();     //  gives us the images after each click!!
-  renderPictures();
+    // renderPictures();     //  gives us the images after each click!!
+    renderPictures();
 
-  if (clicked === totalClickedAllowed) {
+    if (clicked === totalClickedAllowed) {
 
-    pictureContener.removeEventListener('click', handleClick);
+      pictureContener.removeEventListener('click', handleClick);
 
-    renderMyChart();
-    renderResults();
+      renderMyChart();
+      renderResults();
 
-    //  lab 13 save data begins
+      //  lab 13 save data begins
 
-    var stringifiedResults = JSON.stringify(allPictures); // "packs data away" to be stored, we convert to JSON
-    localStorage.setItem('pictureResults', stringifiedResults); // store the data - "put the box on the shelf"
-    // lab 13 save data ends
-
+      var stringifiedResults = JSON.stringify(allPictures); // "packs data away" to be stored, we convert to JSON
+      localStorage.setItem('pictureResults', stringifiedResults); // store the data - "put the box on the shelf"
+      // lab 13 save data ends
+    }
+  } else {
+    alert('please clicked picture ');
   }
 }
+
+
+
 pictureContener.addEventListener('click', handleClick);
 
 
@@ -148,7 +155,6 @@ pictureContener.addEventListener('click', handleClick);
 var namesData = [];
 var votesData = [];
 var viewsData = [];
-
 
 function getChartData() {
   for (var i = 0; i < allPictures.length; i++) {

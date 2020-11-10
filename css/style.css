@@ -15,6 +15,9 @@ h1 {
   color: whitesmoke;
   font-family: 'Fjalla One', sans-serif;
 }
+img:hover {
+  background: #ff7b29;
+}
 
 img {
   
@@ -29,20 +32,28 @@ img {
 }
 img:hover {
   border: 8px solid rgb(193, 207, 224);
-
 }
- h2,ul,button {
+
+ ul,button {
     text-align: center;
     color:green;
     font-weight: bold;
   }
- 
+  h2{
+    text-align: center;
+    color: yellowgreen;
+    cursor: pointer;
+    font-size: 25px;
+  }
+  h2:hover{
+    background: red;
+  }
   
   section {
-    width: 80%;
+    width: 70%;
     margin: auto;
     border: 4px solid rgb(4, 73, 50);
-    height: 400px;
+    /* height: 300px; */
   }
   
 #catalogList{
@@ -67,9 +78,28 @@ color: teal;
 font-family: 'Times New Roman', Times, serif;
 border: violet;
 } 
+
+
+
 .bar {
   height: 2px;
   width: 40%;
   margin: 20px auto;
   background-color: red;
+}
+.bar:hover {
+  background: sandybrown;
+}
+#catalogList:hover {
+  background: #ff7b29;
+}
+footer{
+  background-color: lawngreen;
+  text-align: center;
+  color: red;
+  font-weight: bolder;
+  
+}
+footer:hover {
+  background: rgb(193, 207, 224);
 }
