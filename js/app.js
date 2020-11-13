@@ -1,6 +1,6 @@
 'use strict';
 
-// ========== global variables==========
+// ========== Elements from the Dom==========
 
 var pictureOneEl = document.getElementById('picture-one'); // =====images can give properties from the js
 var pictureTwoEl = document.getElementById('picture-two'); // =====images can give properties from the js
@@ -9,7 +9,7 @@ var pictureContener = document.getElementById('picture-contener'); // =====liste
 var catalogList = document.getElementById('catalogList'); // =====render result
 var ctx = document.getElementById('myChart').getContext('2d');
 
-
+// ========== global variables==========
 var totalClickedAllowed = 25;
 var clicked = 0;
 var allPictures = [];
@@ -38,7 +38,7 @@ var retrievedResults = localStorage.getItem('pictureResults'); // IF the data ex
 // NOTE:  we need to NOT reinstantiate goats IF Local Storage ALREADY EXISTS
 if (retrievedResults) {
   var parsedRetrievedResults = JSON.parse(retrievedResults); // "unpack the data" - convert from JSON to JavaScript
-  allPictures = parsedRetrievedResults;// IF data exists we assign that data to the goats array so we can add more data to existing data
+  allPictures = parsedRetrievedResults;// IF data exists we assign that data to the pictures array so we can add more data to existing data
 } else {
 
   new Pictures('bag');
@@ -114,6 +114,7 @@ renderPictures(); //  gives us initial image !!
 
 function handleClick(event) {
   var clickedPictures = event.target.alt;
+  // var clickdDiv = event.target.id;
   if (clickedPictures) {
     clicked++;
 
